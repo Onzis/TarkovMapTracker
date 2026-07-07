@@ -2,11 +2,11 @@
 // @name         TarkovMapTrackerAuto
 // @namespace    https://github.com/Onzis/TarkovMapTracker
 // @author       Onzis
-// @version      1.2
+// @version      1.2.1
 // @homepageURL  https://github.com/Onzis/TarkovMapTracker
 // @updateURL    https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @downloadURL  https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
-// @icon         https://github.com/Onzis/TarkovMapTracker/blob/main/public/ico/pngegg.png
+// @icon         https://raw.githubusercontent.com/Onzis/TarkovMapTracker/main/public/ico/pngegg.png
 // @description  Автоматический ввод координат из скриншотов без потери фокуса игры
 // @license      GPL-3.0 license
 // @match        https://tarkov-market.ru/maps/*
