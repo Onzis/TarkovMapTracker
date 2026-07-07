@@ -4,8 +4,8 @@
 // @author       Onzis
 // @version      1.1
 // @homepageURL  https://github.com/Onzis/TarkovMapTracker
-// @updateURL
-// @downloadURL
+// @updateURL    https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
+// @downloadURL  https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @icon
 // @description  Автоматический ввод координат из скриншотов без потери фокуса игры
 // @license      GPL-3.0 license
