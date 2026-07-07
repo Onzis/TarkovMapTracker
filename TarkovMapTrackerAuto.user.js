@@ -2,7 +2,7 @@
 // @name         TarkovMapTrackerAuto
 // @namespace    https://github.com/Onzis/TarkovMapTracker
 // @author       Onzis
-// @version      1.1
+// @version      1.2
 // @homepageURL  https://github.com/Onzis/TarkovMapTracker
 // @updateURL    https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @downloadURL  https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
