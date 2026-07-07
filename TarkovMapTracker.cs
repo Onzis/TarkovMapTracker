@@ -7,6 +7,15 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
+
+[assembly: AssemblyTitle("Tarkov Map Tracker")]
+[assembly: AssemblyDescription("Tray HTTP server that exposes latest Tarkov screenshot coordinates")]
+[assembly: AssemblyCompany("Onzis")]
+[assembly: AssemblyProduct("Tarkov Map Tracker")]
+[assembly: AssemblyCopyright("Copyright © Onzis")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 
 namespace TarkovMapTracker
 {
@@ -16,6 +25,10 @@ namespace TarkovMapTracker
         private static string latestCoords = "";
         private static readonly object coordLock = new object();
         private static NotifyIcon trayIcon;
+        private static MenuItem autostartItem;
+
+        private const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private const string AppName = "TarkovMapTracker";
 
         [STAThread]
         static void Main()
@@ -38,6 +51,9 @@ namespace TarkovMapTracker
                 trayIcon.Visible = true;
 
                 var menu = new ContextMenu();
+                autostartItem = new MenuItem("Автозагрузка", (s2, e2) => ToggleAutostart());
+                autostartItem.Checked = IsAutostartEnabled();
+                menu.MenuItems.Add(autostartItem);
                 menu.MenuItems.Add("Выход", (s2, e2) => Application.Exit());
                 trayIcon.ContextMenu = menu;
                 trayIcon.ShowBalloonTip(3000, "Tarkov Map Tracker",
@@ -69,6 +85,47 @@ namespace TarkovMapTracker
                 DumpError(ex);
                 MessageBox.Show("Критическая ошибка. См. дамп рядом с EXE.\n" + ex.Message,
                     "Tarkov Map Tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static bool IsAutostartEnabled()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RunKey, false))
+                {
+                    return key != null && key.GetValue(AppName) != null;
+                }
+            }
+            catch { return false; }
+        }
+
+        private static void ToggleAutostart()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RunKey, true))
+                {
+                    if (key == null) return;
+                    var exe = Assembly.GetExecutingAssembly().Location;
+                    if (IsAutostartEnabled())
+                    {
+                        key.DeleteValue(AppName, false);
+                        trayIcon.ShowBalloonTip(2000, "Автозагрузка",
+                            "Убрано из автозагрузки", ToolTipIcon.Info);
+                    }
+                    else
+                    {
+                        key.SetValue(AppName, "\"" + exe + "\"");
+                        trayIcon.ShowBalloonTip(2000, "Автозагрузка",
+                            "Добавлено в автозагрузку", ToolTipIcon.Info);
+                    }
+                }
+                autostartItem.Checked = IsAutostartEnabled();
+            }
+            catch (Exception ex)
+            {
+                DumpError(ex);
             }
         }
 
