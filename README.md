@@ -1,6 +1,7 @@
 # TarkovMapTracker
 
 Автоматическая передача координат из игры Escape from Tarkov на карту tarkov-market.ru/maps без сворачивания игры и потери фокуса.
+<img width="1920" height="911" alt="chrome_BfV8EDP5q2" src="https://github.com/user-attachments/assets/d3519c95-02d2-4253-8c84-7bda6dd15cae" />
 
 ---
 
