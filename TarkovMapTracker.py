@@ -6,10 +6,10 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-# Путь к папке со скриншотами Tarkov
-WATCH_DIR = r"C:\Users\Admin\Documents\Escape from Tarkov\Screenshots"
+# Автоматическое определение папки Документы текущего пользователя Windows
+USER_HOME = os.path.expanduser('~')
+WATCH_DIR = os.path.join(USER_HOME, "Documents", "Escape from Tarkov", "Screenshots")
 
-# Переменная для хранения последних координат
 latest_coords = ""
 
 class CoordinatesServer(BaseHTTPRequestHandler):
@@ -17,10 +17,9 @@ class CoordinatesServer(BaseHTTPRequestHandler):
         global latest_coords
         self.send_response(200)
         self.send_header("Content-type", "application/json")
-        self.send_header("Access-Control-Allow-Origin", "*")  # Разрешаем запросы от браузера
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         
-        # Отправляем координаты и сразу очищаем буфер
         response = {"coords": latest_coords}
         latest_coords = "" 
         self.wfile.write(json.dumps(response).encode('utf-8'))
@@ -33,7 +32,7 @@ class CoordinatesServer(BaseHTTPRequestHandler):
         self.end_headers()
 
     def log_message(self, format, *args):
-        pass # Отключение логов запросов в консоль для чистоты
+        pass
 
 def run_server():
     server = HTTPServer(('127.0.0.1', 12345), CoordinatesServer)
@@ -43,7 +42,7 @@ class ScreenshotHandler(FileSystemEventHandler):
     def on_created(self, event):
         global latest_coords
         if not event.is_directory and event.src_path.lower().endswith(('.png', '.jpg', '.jpeg')):
-            time.sleep(0.2) # Пауза для завершения записи файла игрой
+            time.sleep(0.2)
             file_path = event.src_path
             file_name = os.path.basename(file_path)
             name_without_ext, _ = os.path.splitext(file_name)
@@ -60,11 +59,9 @@ if __name__ == "__main__":
         print(f"Путь не найден: {WATCH_DIR}")
         exit()
 
-    # Запуск веб-сервера в фоновом потоке
     server_thread = threading.Thread(target=run_server, daemon=True)
     server_thread.start()
 
-    # Запуск трекера папки
     event_handler = ScreenshotHandler()
     observer = Observer()
     observer.schedule(event_handler, path=WATCH_DIR, recursive=False)
