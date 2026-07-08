@@ -2,13 +2,14 @@
 // @name         TarkovMapTrackerAuto
 // @namespace    https://github.com/Onzis/TarkovMapTracker
 // @author       Onzis
-// @version      1.2.3
+// @version      1.2.4
 // @homepageURL  https://github.com/Onzis/TarkovMapTracker
 // @updateURL    https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @downloadURL  https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @icon         https://raw.githubusercontent.com/Onzis/TarkovMapTracker/main/public/ico/pngegg.png
 // @description  Автоматический ввод координат из скриншотов без потери фокуса игры
 // @license      GPL-3.0 license
+// @match        https://tarkov-market.ru/*
 // @match        https://tarkov-market.ru/maps/*
 // @grant        GM_xmlhttpRequest
 // @connect      127.0.0.1
@@ -23,8 +24,14 @@
     // измените этот угол (например: 90, 180, -90) для калибровки «Севера» на карте.
     const ARROW_CORRECTION_ANGLE = 0;
 
+    // Работаем только на страницах карт (переживаем SPA-навигацию без перезагрузки)
+    function onMap() {
+        return location.pathname.indexOf('/maps/') === 0;
+    }
+
     // Функция отрисовки стрелки внутри стандартного маркера сайта
     function renderDirectionArrow() {
+        if (!onMap()) return;
         // Находим элемент маркера, который вы нашли в коде страницы
         let marker = document.querySelector('div.marker');
 
@@ -64,6 +71,7 @@
 
     // Логика автоматического получения скриншотов из Python
     setInterval(() => {
+        if (!onMap()) return;
         GM_xmlhttpRequest({
             method: "GET",
             url: "http://127.0.0.1:12345/",
@@ -102,6 +110,7 @@
 
     let lastWhereBtn = null;
     setInterval(() => {
+        if (!onMap()) { lastWhereBtn = null; return; }
         let btn = findWhereButton();
         if (!btn) {
             // Кнопка исчезла (вышли с карты / сменили карту) — сбрасываем,
