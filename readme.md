@@ -2,7 +2,7 @@
 
 > Автоматическое отслеживание позиции игрока на картах **Escape from Tarkov** без сворачивания игры и потери фокуса c добавлением кастомной стрелки на онлайн карту.
 
-[![Userscript Version](https://img.shields.io/badge/Userscript-1.2.2-green.svg)](https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js)
+[![Userscript Version](https://img.shields.io/badge/Download-1.2.4.1-green.svg)](https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Onzis/TarkovMapTracker/total?logo=github)](https://github.com/Onzis/TarkovMapTracker/releases)
 [![GitHub stars](https://img.shields.io/github/stars/Onzis/TarkovMapTracker?label=Stars&style=flat-square)](https://github.com/Onzis/TarkovMapTracker/stargazers) 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
