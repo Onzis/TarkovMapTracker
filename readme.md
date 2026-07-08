@@ -4,7 +4,7 @@
 
 [![Userscript Version](https://img.shields.io/badge/Userscript-1.2.2-green.svg)](https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Onzis/TarkovMapTracker/total?logo=github)](https://github.com/Onzis/TarkovMapTracker/releases)
-[![GitHub stars](https://img.shields.io/github/stars/Onzis/TarkovMapTracker?label=Звёзды&style=flat-square)](https://github.com/Onzis/TarkovMapTracker/stargazers) 
+[![GitHub stars](https://img.shields.io/github/stars/Onzis/TarkovMapTracker?label=Stars&style=flat-square)](https://github.com/Onzis/TarkovMapTracker/stargazers) 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 <img width="1239" height="706" alt="image" src="https://github.com/user-attachments/assets/4cef77f5-690d-4a95-b537-2df160934b4a" />
 
