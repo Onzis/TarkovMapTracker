@@ -2,7 +2,7 @@
 // @name         TarkovMapTrackerAuto
 // @namespace    https://github.com/Onzis/TarkovMapTracker
 // @author       Onzis
-// @version      1.2.2
+// @version      1.2.3
 // @homepageURL  https://github.com/Onzis/TarkovMapTracker
 // @updateURL    https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
 // @downloadURL  https://github.com/Onzis/TarkovMapTracker/raw/refs/heads/main/TarkovMapTrackerAuto.user.js
@@ -88,5 +88,32 @@
                 }
             }
         });
+    }, 1000);
+
+    // Автоматически нажимаем «Где я?» при заходе на карту,
+    // чтобы активировать режим ввода координат со скриншота (без ручного клика).
+    function findWhereButton() {
+        let btns = document.querySelectorAll('button.no-wrap');
+        for (let b of btns) {
+            if (b.textContent.trim() === 'Где я?') return b;
+        }
+        return null;
+    }
+
+    let lastWhereBtn = null;
+    setInterval(() => {
+        let btn = findWhereButton();
+        if (!btn) {
+            // Кнопка исчезла (вышли с карты / сменили карту) — сбрасываем,
+            // чтобы при повторном появлении кликнуть снова.
+            lastWhereBtn = null;
+            return;
+        }
+        // Кликаем один раз для каждого нового экземпляра кнопки.
+        if (btn !== lastWhereBtn) {
+            btn.click();
+            lastWhereBtn = btn;
+            console.log('TarkovMapTracker: авто-клик «Где я?»');
+        }
     }, 1000);
 })();
